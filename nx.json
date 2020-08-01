@@ -28,6 +28,13 @@
     "angular-chat-e2e": {
       "tags": [],
       "implicitDependencies": ["angular-chat"]
+    },
+    "react-chat": {
+      "tags": []
+    },
+    "react-chat-e2e": {
+      "tags": [],
+      "implicitDependencies": ["react-chat"]
     }
   }
 }

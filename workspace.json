@@ -123,6 +123,113 @@
           }
         }
       }
+    },
+    "react-chat": {
+      "root": "apps/react-chat",
+      "sourceRoot": "apps/react-chat/src",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "options": {
+            "outputPath": "dist/apps/react-chat",
+            "index": "apps/react-chat/src/index.html",
+            "main": "apps/react-chat/src/main.tsx",
+            "polyfills": "apps/react-chat/src/polyfills.ts",
+            "tsConfig": "apps/react-chat/tsconfig.app.json",
+            "assets": [
+              "apps/react-chat/src/favicon.ico",
+              "apps/react-chat/src/assets"
+            ],
+            "styles": ["apps/react-chat/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/react-chat/src/environments/environment.ts",
+                  "with": "apps/react-chat/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "react-chat:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "react-chat:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/react-chat/tsconfig.app.json",
+              "apps/react-chat/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/react-chat/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/react-chat/jest.config.js",
+            "tsConfig": "apps/react-chat/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "react-chat-e2e": {
+      "root": "apps/react-chat-e2e",
+      "sourceRoot": "apps/react-chat-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/react-chat-e2e/cypress.json",
+            "tsConfig": "apps/react-chat-e2e/tsconfig.e2e.json",
+            "devServerTarget": "react-chat:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "react-chat:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": ["apps/react-chat-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/react-chat-e2e/**/*"]
+          }
+        }
+      }
     }
   },
   "cli": {
@@ -141,13 +248,19 @@
     },
     "@nrwl/react": {
       "application": {
-        "linter": "eslint"
+        "style": "scss",
+        "linter": "eslint",
+        "babel": true
       },
       "library": {
+        "style": "scss",
         "linter": "eslint"
       },
       "storybook-configuration": {
         "linter": "eslint"
+      },
+      "component": {
+        "style": "scss"
       }
     },
     "@nrwl/next": {

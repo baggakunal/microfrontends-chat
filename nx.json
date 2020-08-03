@@ -42,6 +42,9 @@
     "shell-e2e": {
       "tags": [],
       "implicitDependencies": ["shell"]
+    },
+    "common": {
+      "tags": []
     }
   }
 }
